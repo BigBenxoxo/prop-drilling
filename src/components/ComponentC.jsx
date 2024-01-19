@@ -11,8 +11,9 @@ const ComponentC = (props) => {
   }, [data]);
 
   const handleChange = (orderIndex, field) => (event) => {
-    const newOrders = [...orders];
-    newOrders[orderIndex][field] = event.target.value;
+    const newOrders = orders.map((order, index) => {
+      index === orderIndex ? { ...order, [field]: event.target.value } : order;
+    });
     setOrders(newOrders);
   };
 
