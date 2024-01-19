@@ -11,6 +11,19 @@ return response.data;
 });
 
 
+export const reduxHandleUpdate = createAsyncThunk(
+    "data/reduxHandleUpdate", 
+    async ({ data, orders }, thunkApi) => {
+        try {
+            const response = await axios.put(`http://localhost:3001/data`, { ...data, orders, 
+        })
+        return response.data;
+    } catch (error) {
+        return thunkApi.rejectWithValue(error.response.data);
+    }
+    }
+)
+
 const dataSlice = createSlice({
     name: 'data',
     initialState: {
@@ -29,6 +42,9 @@ const dataSlice = createSlice({
     }
 );
     },
+    })
+    .addCase(reduxHandleUpdate.fulfilled, (state, action) => {
+        state.data = action.payload;
     });
 
 export default dataSlice.reducer;

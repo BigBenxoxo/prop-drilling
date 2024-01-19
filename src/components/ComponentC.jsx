@@ -1,9 +1,12 @@
 import { Button, TextField } from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { url } from "../api/api";
+import { getDataRedux, reduxHandleUpdate } from "../store/dataSlice";
 
 const ComponentC = (props) => {
   const { data } = props;
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState(data?.orders);
 
   useEffect(() => {
@@ -17,16 +20,9 @@ const ComponentC = (props) => {
     setOrders(newOrders);
   };
 
-  const handleUpdate = async () => {
-    try {
-      const response = await axios.put(`http://localhost:3000/data`, {
-        ...data,
-        orders,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const handleUpdate = () => {
+    dispatch(reduxHandleUpdate({ ...data, orders }));
+    dispatch(getDataRedux(url));
   };
 
   return (
