@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 
 const ComponentC = (props) => {
   const { data } = props;
-  const [orders, setOrders] = useState(data.orders);
+  const [orders, setOrders] = useState(data?.orders);
 
   useEffect(() => {
-    setOrders(data.orders);
+    setOrders(data?.orders);
   }, [data]);
 
   const handleChange = (orderIndex, field) => (event) => {
@@ -32,9 +32,9 @@ const ComponentC = (props) => {
     <div>
       <h1>Component C</h1>
       <div>
-        <h2>{data.name}</h2>
+        <h2>{data?.name}</h2>
         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-          {orders.map((order, orderIndex) => (
+          {orders?.map((order, orderIndex) => (
             <div
               key={orderIndex}
               style={{ display: "flex", flexDirection: "column", margin: 10 }}
